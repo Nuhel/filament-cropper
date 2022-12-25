@@ -18,9 +18,9 @@ class Cropper extends FileUpload
 
     protected string | Closure | null $modalHeading = 'Manage Image';
 
+    protected bool | Closure $isRotationEnabled = false;
 
-
-    protected bool | Closure $isRotationEnabled = true;
+    protected bool | Closure $isFlippingEnabled = false;
 
     public function getAcceptedFileTypes(): ?array
     {
@@ -62,11 +62,22 @@ class Cropper extends FileUpload
         return $this;
     }
 
-    public function isRotationEnabled() : bool{
+    public function isRotationEnabled() : bool
+    {
         return $this->evaluate($this->isRotationEnabled);
     }
 
+    public function enableImageFlipping(bool | Closure $condition = true): static
+    {
+        $this->isFlippingEnabled = $condition;
 
+        return $this;
+    }
+
+    public function isFlippingEnabled() : bool
+    {
+        return $this->evaluate($this->isFlippingEnabled);
+    }
 
     public function getImageCropAspectRatioForCropper(): float|int
     {
