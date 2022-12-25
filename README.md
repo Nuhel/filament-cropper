@@ -34,7 +34,7 @@ Cropper::make('avatar')
         ->enableDownload()
         ->modalSize('xl'),
 ```
-We can make cropper circular using `avater` method.
+We can make cropper circular using `avatar` method.
 ![screenshot of big modal](./images/circural-example.png)
 
 Modal size can be customized if it is needed,
@@ -45,7 +45,7 @@ Cropper::make('avatar')
         ->enableOpen()
         ->enableDownload()
         ->modalSize('xl')
-    ->modalHeading("Crop Background Image")
+        ->modalHeading("Crop Background Image")
 ```
 ![screenshot of big modal](./images/xl-modal-example.png)
 
