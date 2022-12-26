@@ -185,7 +185,7 @@
                                             :value="rotateDegree"
                                             type="range"
                                             class="w-full focus:outline-none focus:bg-primary-200 dark:focus:bg-primary-900 disabled:opacity-70 disabled:cursor-not-allowed filament-forms-range-component border-gray-300 bg-gray-200 dark:bg-white/10 w-90"
-                                            min="-90"  max="90"  step="1"
+                                            min="{{$getMinRotationalDegree()}}"  max="{{$getMaxRotationalDegree()}}"  step="{{$getRotationalStep()}}"
                                             x-on:change="function(event){
                                         rotateDegree = event.target.value
                                         rotateByValue(event.target.value);
@@ -260,16 +260,12 @@
                     </div>
                 </div>
 
-
                 <div class="flex justify-center items-center gap-2">
                     <x-filament::button type="button"  x-on:click.prevent="uploadCropperImage()">
                         @lang('filament::resources/pages/edit-record.form.actions.save.label')
                     </x-filament::button>
                 </div>
             </div>
-
-
-
 
         </x-filament::modal>
     </div>
