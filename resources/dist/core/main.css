@@ -302,3 +302,17 @@
 .action-group .action:not(:last-child):not(:first-child){
     @apply border-r
 }
+
+.cropper-image-picker{
+    position: absolute;
+    top: 0;
+    height: 2.625em;
+    opacity: 0;
+}
+
+.cropper-image-picker.avatar{
+    left: 50%;
+    transform: translateX(-50%);
+    height: 128px;
+    border-radius: 99999rem;
+}

@@ -494,6 +494,20 @@
   border-right-width:1px
 }
 
+.cropper-image-picker{
+  position: absolute;
+  top: 0;
+  height: 2.625em;
+  opacity: 0;
+}
+
+.cropper-image-picker.avatar{
+  left: 50%;
+  transform: translateX(-50%);
+  height: 128px;
+  border-radius: 99999rem;
+}
+
 .focus\:bg-primary-200:focus{
   --tw-bg-opacity:1;
   background-color:rgb(191 219 254 / var(--tw-bg-opacity))

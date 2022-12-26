@@ -111,7 +111,7 @@
             x-show = "(({{$getState() == null  ? 'true':'false'}} && !fileHasUploaded) || fileHasDeleted) || {{$isMultiple()?'true':'false'}}"
 
             @class([
-                    'croppie-image-picker',
+                    'cropper-image-picker',
                     "left-0 w-full cursor-pointer" => !$isAvatar(),
                     "avatar  w-32  cursor-pointer" => $isAvatar(),
             ])
