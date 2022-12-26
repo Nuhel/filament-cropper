@@ -5,6 +5,9 @@ namespace Nuhel\FilamentCropper\Components;
 use Closure;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Str;
+use Nuhel\FilamentCropper\Values\DragMode;
+use Nuhel\FilamentCropper\Values\ViewMode;
+use PhpParser\Node\Expr\ClosureUse;
 
 class Cropper extends FileUpload
 {
@@ -27,6 +30,12 @@ class Cropper extends FileUpload
     protected int | Closure $rotationalStep = 1;
 
     protected bool | Closure $isFlippingEnabled = false;
+
+    protected array | Closure $enabledAspectRatios = [];
+
+    protected ViewMode | Closure $viewMode;
+
+    protected DragMode | Closure $dragMode;
 
 
     public function getAcceptedFileTypes(): ?array
@@ -62,7 +71,7 @@ class Cropper extends FileUpload
         return $this->evaluate($this->modalHeading);
     }
 
-    public function enableImageRotation(bool | Closure $condition = true, int $minDeg = null, $maxDeg = null): static
+    public function enableImageRotation(bool | Closure $condition = true): static
     {
         $this->isRotationEnabled = $condition;
 
@@ -125,21 +134,90 @@ class Cropper extends FileUpload
 
     public function getImageCropAspectRatioForCropper(): float|int
     {
-        $ratio = $this->getImageCropAspectRatio();
-        if(empty($ratio)){
-            return 1;
+        return $this->isRatioValid($this->getImageCropAspectRatio())??1;
+    }
+
+    public function enabledAspectRatios(array | Closure $ratios) : static
+    {
+        $this->enabledAspectRatios = $ratios;
+
+        return $this;
+    }
+
+    public function getEnabledAspectRatios() : array
+    {
+        $ratios = $this->evaluate($this->enabledAspectRatios);
+
+
+        if(is_array($ratios)){
+
+            $ratios = [
+                $this->getImageCropAspectRatio(),
+                ...$ratios
+            ];
+            $filtered = [];
+
+            foreach ($ratios as $ratio)
+            {
+                $actualRation = $this->isRatioValid($ratio);
+
+                if($actualRation)
+                {
+                    $filtered[$ratio] = $actualRation;
+                }
+
+            }
+
+            return $filtered;
+        }
+
+        return [];
+    }
+
+    public function viewMode(ViewMode | Clousure $viewMode) : static{
+        $this->viewMode = $viewMode;
+        return $this;
+    }
+
+    public function getViewMode() : ViewMode{
+        if(empty($this->viewMode)){
+            return ViewMode::FIT_FILL_CANVAS;
+        }
+        return $this->evaluate($this->viewMode);
+    }
+
+    public function dragMode(DragMode | Clousure $dragMode) : static{
+        $this->dragMode = $dragMode;
+        return $this;
+    }
+
+    public function getDragMode() : DragMode{
+        if(empty($this->dragMode)){
+            return DragMode::NONE;
+        }
+        return $this->evaluate($this->dragMode);
+    }
+
+    protected function isRatioValid(string | null $ratio):bool | float | int
+    {
+        if(empty($ratio))
+        {
+            return false;
         }
 
         $explodedRation = Str::of($ratio)->explode(':');
-        if($explodedRation->count() != 2){
-            return 1;
+
+        if($explodedRation->count() != 2)
+        {
+            return false;
         }
 
-        if (!(is_numeric($explodedRation->first()) && is_numeric($explodedRation->last())) || $explodedRation->last() == 0){
-            return 1;
+        if (!(is_numeric($explodedRation->first()) && is_numeric($explodedRation->last())) || $explodedRation->last() == 0)
+        {
+            return false;
         }
 
-        return $explodedRation->first()/ $explodedRation->last();
+        return $explodedRation->first() / $explodedRation->last();
     }
 
 }

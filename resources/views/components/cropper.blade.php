@@ -163,7 +163,8 @@
                         aspectRatio: {{$getImageCropAspectRatioForCropper()}},
                         rotatable: {{$isRotationEnabled()?'true':'false'}},
                         rotateDegree: 0,
-                        dragMode: 'crop'
+                        dragMode: '{{$getDragMode()}}',
+                        viewMode: {{$getViewMode()}},
                     })" x-cloak
             >
                 <div class="h-full w-full" wire:ignore >
@@ -190,7 +191,7 @@
                                         rotateDegree = event.target.value
                                         rotateByValue(event.target.value);
                                     }"/>
-                                        <div class="flex px-2 items-center justify-center">
+                                        <div class="flex items-center justify-center">
                                             <span x-text="rotateDegree"></span>
                                         </div>
 
@@ -202,6 +203,7 @@
                                                 <svg class="h-4 dark:fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rotate-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M480 256c0 123.4-100.5 223.9-223.9 223.9c-48.84 0-95.17-15.58-134.2-44.86c-14.12-10.59-16.97-30.66-6.375-44.81c10.59-14.12 30.62-16.94 44.81-6.375c27.84 20.91 61 31.94 95.88 31.94C344.3 415.8 416 344.1 416 256s-71.69-159.8-159.8-159.8c-37.46 0-73.09 13.49-101.3 36.64l45.12 45.14c17.01 17.02 4.955 46.1-19.1 46.1H35.17C24.58 224.1 16 215.5 16 204.9V59.04c0-24.04 29.07-36.08 46.07-19.07l47.6 47.63C149.9 52.71 201.5 32.11 256.1 32.11C379.5 32.11 480 132.6 480 256z"></path></svg>
                                             </button>
                                         </div>
+
                                     </div>
                                     <div class="text-center">
                                         <span class="text-gray-400">Rotate Image</span>
@@ -211,13 +213,11 @@
 
 
                             @if($isFlippingEnabled())
-                                <div class="flex rounded-md shadow-sm w-full justify-center" role="group">
+                                <div class="action-group" role="group">
                                     <button
-                                        class="text-white p-2 filament-button"
                                         title="Flip"
                                         x-on:click.prevent="flip()"
-                                        type="button"
-                                        >
+                                        type="button" class="action">
                                         <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                 <rect x="0" y="0" width="24" height="24"/>
@@ -227,9 +227,10 @@
                                         </svg>
                                     </button>
                                     <button
+                                        title="Flip Horizontal"
                                         x-on:click.prevent="flipHorizontal()"
-                                        type="button" class="text-white p-2 filament-button" title="Flip Horizontal">
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        type="button" class="action">
+                                        <svg class="fill-primary" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                 <rect x="0" y="0" width="24" height="24"/>
                                                 <path d="M3.73851648,19 L8.5,19 C8.77614237,19 9,18.7761424 9,18.5 L9,6.5962912 C9,6.32014883 8.77614237,6.0962912 8.5,6.0962912 C8.29554771,6.0962912 8.11169333,6.22076667 8.03576165,6.41059586 L3.27427814,18.3143047 C3.17172143,18.5706964 3.29642938,18.8616816 3.55282114,18.9642383 C3.61188128,18.9878624 3.67490677,19 3.73851648,19 Z" fill="#000000" opacity="0.3"/>
@@ -239,11 +240,9 @@
                                         </svg>
                                     </button>
                                     <button
-                                        x-on:click.prevent="flipVertical()"
-                                        type="button" class="text-white p2"
                                         title="Flip Vertical"
-                                    >
-
+                                        x-on:click.prevent="flipVertical()"
+                                        type="button" class="action">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                 <rect x="0" y="0" width="24" height="24"/>
@@ -253,6 +252,19 @@
                                             </g>
                                         </svg>
                                     </button>
+                                </div>
+                            @endif
+
+                            @if(!empty($getEnabledAspectRatios()))
+                                <div class="action-group" role="group">
+                                @foreach($getEnabledAspectRatios() as $key => $ratio)
+                                        <button
+                                            title="Aspect Ratio {{$key}}"
+                                            x-on:click.prevent="setAspectRatio({{$ratio}})"
+                                            type="button" class="action" :class="{ 'active': appliedAspectRatio == {{$ratio}} }">
+                                           {{$key}}
+                                        </button>
+                                    @endforeach
                                 </div>
                             @endif
 

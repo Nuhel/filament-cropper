@@ -8,9 +8,11 @@ document.addEventListener('alpine:init', () => {
         shape: config.shape,
         statePath: config.statePath,
         aspectRatio: config.aspectRatio,
+        appliedAspectRatio: config.aspectRatio,
         rotatable: config.rotatable,
         rotateDegree: config.rotateDegree,
         dragMode : config.dragMode,
+        viewMode: config.viewMode,
 
         scales:{
 
@@ -22,7 +24,7 @@ document.addEventListener('alpine:init', () => {
         init() {
             this.$nextTick(
                 () => {
-                    console.log(this.aspectRatio);
+
                 }
             )
             this.$watch('files', async (value) => {
@@ -65,7 +67,8 @@ document.addEventListener('alpine:init', () => {
                 this.$refs.cropper, {
                     aspectRatio: this.aspectRatio,
                     rotatable: this.rotatable,
-                    dragMode: 'crop',
+                    dragMode: this.dragMode,
+                    viewMode: this.viewMode,
                     crop(event) {
 
                     },
@@ -73,6 +76,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         rotateByValue(value){
+            console.log(value);
             const previousRotate = this.cropper.getImageData().rotate;
             this.cropper.rotate(value-previousRotate)
         },
@@ -81,6 +85,11 @@ document.addEventListener('alpine:init', () => {
             previousRotate = (previousRotate )-(previousRotate * 2);
             this.rotateDegree = 0;
             this.cropper.rotate(previousRotate)
+        },
+
+        setAspectRatio(ratio){
+            this.cropper.setAspectRatio(ratio);
+            this.appliedAspectRatio = ratio;
         },
 
         flip (){
