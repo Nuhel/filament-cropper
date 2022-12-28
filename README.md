@@ -1,7 +1,7 @@
 # Filament Cropper Plugin
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nuhel/filament-cropper.svg?style=flat-square)](https://packagist.org/packages/nuhel/filament-cropper)
-[![Total Downloads](https://img.shields.io/packagist/dt/nuhel/filament-cropper.svg?style=flat-square)](https://packagist.org/packages/nuhel/filament-croppie)
+[![Total Downloads](https://img.shields.io/packagist/dt/nuhel/filament-cropper.svg?style=flat-square)](https://packagist.org/packages/nuhel/filament-cropper)
 
 
 ## Installation
