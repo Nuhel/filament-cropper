@@ -49,6 +49,25 @@ Cropper::make('avatar')
 ```
 ![screenshot of big modal](./images/xl-modal-example.png)
 
+`List of available options`
+
+```php
+Cropper::make('image')
+            ->modalSize('xl')
+            ->modalHeading("Crop Background Image")
+            ->enableImageRotation()
+            ->rotationalStep(5)
+            ->enableImageFlipping()
+            ->enabledAspectRatios([
+                '2:3', '9:16', '5:5'
+            ])
+            ->zoomable(true)
+            ->enableZoomButtons()
+            ->enableAspectRatioFreeMode()
+            ->imageCropAspectRatio('4:9')
+```
+![screenshot of big modal](./images/all-options.png)
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

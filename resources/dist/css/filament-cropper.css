@@ -11,6 +11,11 @@
   margin-right:auto
 }
 
+.my-2{
+  margin-top:0.5rem;
+  margin-bottom:0.5rem
+}
+
 .block{
   display:block
 }
@@ -35,6 +40,10 @@
   width:100%
 }
 
+.w-4{
+  width:1rem
+}
+
 .transform{
   transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
@@ -47,6 +56,10 @@
   flex-direction:column
 }
 
+.flex-wrap{
+  flex-wrap:wrap
+}
+
 .items-center{
   align-items:center
 }
@@ -57,6 +70,10 @@
 
 .justify-between{
   justify-content:space-between
+}
+
+.gap-4{
+  gap:1rem
 }
 
 .gap-2{
@@ -421,8 +438,6 @@
 }
 
 .action-group{
-  margin-top:0.5rem;
-  margin-bottom:0.5rem;
   display:flex;
   justify-content:center
 }

@@ -282,7 +282,7 @@
 }
 
 .action-group{
-    @apply flex justify-center my-2
+    @apply flex justify-center
 }
 
 .action-group .action{

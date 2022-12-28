@@ -13,6 +13,7 @@ document.addEventListener('alpine:init', () => {
         rotateDegree: config.rotateDegree,
         dragMode : config.dragMode,
         viewMode: config.viewMode,
+        zoomable: config.zoomable,
 
         scales:{
 
@@ -69,6 +70,7 @@ document.addEventListener('alpine:init', () => {
                     rotatable: this.rotatable,
                     dragMode: this.dragMode,
                     viewMode: this.viewMode,
+                    zoomable: this.zoomable,
                     crop(event) {
 
                     },
@@ -123,6 +125,10 @@ document.addEventListener('alpine:init', () => {
                 this.scales.flipVertical = -1;
             }
             this.cropper.scale(this.scales.flipHorizontal, this.scales.flipVertical)
+        },
+
+        zoomByValue(value){
+            this.cropper.zoom(value)
         },
 
         uploadCropperImage(){
