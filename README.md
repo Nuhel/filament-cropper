@@ -68,6 +68,36 @@ Cropper::make('image')
 ```
 ![screenshot of big modal](./images/all-options.png)
 
+## Thumbnail Image
+Now You generate Thumbnail Image using `generateThumbnailImage()` method.
+
+```php  
+Cropper::make('avatar')
+		->enableOpen()
+		->enableDownload()
+		->generateThumbnailImage(),  
+```
+
+By default, it's use **thumbnailImages** Folder to store Generated Thumbnail Images.  
+But It can be overridden using `thumbnailImageDirectory` method.
+
+**Note :** [Image Intervention](https://github.com/Intervention/image) Package is required to generate Thumbnail Images by default.
+
+However it's possible to customize the way of generating thumbnail image using method `generateThumbnailImageUsing`
+
+```php  
+Cropper::make('avatar')
+		->enableOpen()
+		->enableDownload()
+		->generateThumbnailImage()
+		->generateThumbnailImageUsing(function(TemporaryUploadedFile $file, string $filename, string $diskName, ?string $directory, string $visibility){
+			...Your Code Here
+		})->removeThumbnailImageUsing(function(TemporaryUploadedFile $file, string $filePath, string $diskName, ?string $directory, string $visibility){  
+			...Your Code Here
+		})
+```
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
