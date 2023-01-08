@@ -140,15 +140,15 @@
             id = $event.detail.id;
             $dispatch('open-modal', {id: id})
         ">
-        <x-filament::modal
+        <x-filament-support::modal
             class=""
             width="{{$getModalSize()}}"
             id="cropper-modal-{{ $getStatePath() }}"
         >
             <x-slot name="heading">
-                <x-filament::modal.heading>
+                <x-filament-support::modal.heading>
                     {{$getModalHeading()}}
-                </x-filament::modal.heading>
+                </x-filament-support::modal.heading>
             </x-slot>
             <div class=" z-5 w-full h-full flex flex-col justify-between"
 
@@ -327,13 +327,13 @@
                 </div>
 
                 <div class="flex justify-center items-center gap-2">
-                    <x-filament::button type="button" x-on:click.prevent="uploadCropperImage()">
+                    <x-filament-support::button type="button" x-on:click.prevent="uploadCropperImage()">
                         @lang('filament::resources/pages/edit-record.form.actions.save.label')
-                    </x-filament::button>
+                    </x-filament-support::button>
                 </div>
             </div>
 
-        </x-filament::modal>
+        </x-filament-support::modal>
     </div>
 
 </x-dynamic-component>
