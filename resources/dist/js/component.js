@@ -78,7 +78,6 @@ document.addEventListener('alpine:init', () => {
         },
 
         rotateByValue(value){
-            console.log(value);
             const previousRotate = this.cropper.getImageData().rotate;
             this.cropper.rotate(value-previousRotate)
         },
@@ -133,7 +132,12 @@ document.addEventListener('alpine:init', () => {
 
         uploadCropperImage(){
             let ref = this;
-            this.cropper.getCroppedCanvas().toBlob((croppedImage) => {
+
+            this.cropper.getCroppedCanvas({
+                maxWidth: ref.width,
+                maxHeight: ref.height,
+            }).toBlob((croppedImage) => {
+
                 let input = document.getElementById(ref.statePath).getElementsByTagName('input')[0]
                 let event = new Event('change');
                 let fileName = ref.filename;
@@ -144,13 +148,14 @@ document.addEventListener('alpine:init', () => {
                     {type:filetype, lastModified:new Date().getTime()},
                     'utf-8'
                 );
+
                 let container = new DataTransfer();
                 container.items.add(file);
 
                 input.files = container.files;
                 ref.$dispatch("close-modal", {id: "cropper-modal-"+ref.statePath, files: null})
                 input.dispatchEvent(event);
-            });
+            },  ref.filetype);
 
         }
     }))
