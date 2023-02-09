@@ -67,7 +67,7 @@ class Cropper extends FileUpload
 
 
 
-    public function dragMode(DragMode|Clousure $dragMode): static
+    public function dragMode(DragMode|Closure $dragMode): static
     {
         $this->dragMode = $dragMode;
         return $this;
