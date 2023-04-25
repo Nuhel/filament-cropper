@@ -78,7 +78,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         rotateByValue(value){
-            const previousRotate = this.cropper.getImageData().rotate;
+            const previousRotate = this.cropper.getImageData().rotate || 0;
             this.cropper.rotate(value-previousRotate)
         },
         resetRotate(){
